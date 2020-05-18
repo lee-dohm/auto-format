@@ -1,28 +1,26 @@
 {
-  "name": "typescript-action",
+  "name": "auto-format",
   "version": "0.0.0",
   "private": true,
-  "description": "TypeScript template action",
-  "main": "lib/main.js",
+  "description": "A GitHub Action that calls your scripts to auto-format your code in a pull request if it isn't already.",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npx ncc build ./src/main.ts",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
-    "lint": "eslint src/**/*.ts",
-    "pack": "ncc build",
-    "test": "jest",
-    "all": "npm run build && npm run format && npm run lint && npm run pack && npm test"
+    "start": "npx ncc start ./src/main.ts",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/lee-dohm/auto-format.git"
   },
   "keywords": [
     "actions",
     "node",
     "setup"
   ],
-  "author": "YourNameOrOrganization",
+  "author": "Lee Dohm",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.0"
@@ -30,14 +28,9 @@
   "devDependencies": {
     "@types/jest": "^24.0.23",
     "@types/node": "^12.7.12",
-    "@typescript-eslint/parser": "^2.8.0",
     "@zeit/ncc": "^0.20.5",
-    "eslint": "^5.16.0",
-    "eslint-plugin-github": "^2.0.0",
-    "eslint-plugin-jest": "^22.21.0",
     "jest": "^24.9.0",
     "jest-circus": "^24.9.0",
-    "js-yaml": "^3.13.1",
     "prettier": "^1.19.1",
     "ts-jest": "^24.2.0",
     "typescript": "^3.6.4"

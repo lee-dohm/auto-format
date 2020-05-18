@@ -1,10 +1,5 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
-inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+name: auto-format
+description: A GitHub Action that calls your scripts to auto-format your code in a pull request if it isn't already
 runs:
   using: 'node12'
   main: 'dist/index.js'
