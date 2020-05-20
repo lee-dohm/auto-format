@@ -44,7 +44,7 @@ async function run(): Promise<void> {
     if (exitCode != 0) {
       await execCommand(format)
 
-      await execCommand(`git commit -am '${message}' --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"`)
+      await execCommand(`git commit -am "${message}" --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"`)
       await execCommand('git push')
     }
   } catch (error) {
