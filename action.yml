@@ -12,9 +12,6 @@ inputs:
     default: Automated formatting
   setup:
     description: Command to use to set up your source
-  token:
-    description: Token to use to commit code back to the pull request
-    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'

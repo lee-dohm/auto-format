@@ -1,7 +1,12 @@
+import * as fs from 'fs'
+import * as util from 'util'
+
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 
 import ExitError from './exit-error'
+
+const readFile = util.promisify(fs.readFile)
 
 interface ExecCommandOpts {
   throw?: boolean
@@ -30,16 +35,16 @@ async function run(): Promise<void> {
     const setup = core.getInput('setup')
     const check = core.getInput('check', { required: true })
     const format = core.getInput('format', { required: true })
-    const token = core.getInput('token', { required: true })
     const message = core.getInput('message') ?? 'Automated formatting'
 
-    let exitCode: number
+    const path = process.env['GITHUB_EVENT_PATH'] ?? '/github/workflow/event.json'
+    const payload = JSON.parse((await readFile(path)).toString())
 
     if (setup) {
       execCommand(setup)
     }
 
-    exitCode = await execCommand(check, { throw: false })
+    const exitCode = await execCommand(check, { throw: false })
 
     if (exitCode != 0) {
       await execCommand(format)
@@ -47,7 +52,7 @@ async function run(): Promise<void> {
       await execCommand(`git config user.name "github-actions[bot]"`)
       await execCommand(`git config user.email "41898282+github-actions[bot]@users.noreply.github.com"`)
       await execCommand(`git commit -am "${message}"`)
-      await execCommand(`git push origin HEAD:${process.env['GITHUB_REF']}`)
+      await execCommand(`git push origin HEAD:${payload.pull_request.head.ref}`)
     }
   } catch (error) {
     core.setFailed(error.message)
