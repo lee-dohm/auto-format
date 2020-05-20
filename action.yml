@@ -1,5 +1,17 @@
 name: auto-format
 description: A GitHub Action that calls your scripts to auto-format your code in a pull request if it isn't already
+inputs:
+  check:
+    description: Command to use to check that the source is properly formatted
+    required: true
+  format:
+    description: Command to use to format the source
+    required: true
+  message:
+    description: Message to use for the commit, if any
+    default: Automated formatting
+  setup:
+    description: Command to use to set up your source
 runs:
   using: 'node12'
   main: 'dist/index.js'
