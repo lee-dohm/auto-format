@@ -17,9 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: npm ci
+      - run: npm run build
       - uses: ./
         with:
-          setup: npm ci
           check: npm run format-check
           format: npm run format
           token: ${{ github.token }}
