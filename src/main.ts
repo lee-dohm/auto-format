@@ -41,7 +41,7 @@ async function run(): Promise<void> {
     const payload = JSON.parse((await readFile(path)).toString())
 
     if (setup) {
-      execCommand(setup)
+      await execCommand(setup )
     }
 
     const exitCode = await execCommand(check, { throw: false })
