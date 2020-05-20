@@ -16,7 +16,7 @@ interface ExecCommandOpts {
  */
 async function execCommand(command: string, opts: ExecCommandOpts = {}) {
   const options: ExecCommandOpts = Object.assign({ throw: true }, opts)
-  const exitCode = await exec.exec(command)
+  const exitCode = await exec.exec(command, undefined, { ignoreReturnCode: true })
 
   if (options.throw && exitCode != 0) {
     throw new ExitError(command, exitCode)
