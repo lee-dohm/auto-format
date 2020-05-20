@@ -47,7 +47,7 @@ async function run(): Promise<void> {
       await execCommand(`git config user.name "github-actions[bot]"`)
       await execCommand(`git config user.email "41898282+github-actions[bot]@users.noreply.github.com"`)
       await execCommand(`git commit -am "${message}"`)
-      await execCommand('git push')
+      await execCommand(`git push origin HEAD:${process.env['GITHUB_REF']}`)
     }
   } catch (error) {
     core.setFailed(error.message)
