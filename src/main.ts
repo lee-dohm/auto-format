@@ -50,7 +50,9 @@ async function run(): Promise<void> {
       await execCommand(format)
 
       await execCommand(`git config user.name "github-actions[bot]"`)
-      await execCommand(`git config user.email "41898282+github-actions[bot]@users.noreply.github.com"`)
+      await execCommand(
+        `git config user.email "41898282+github-actions[bot]@users.noreply.github.com"`
+      )
       await execCommand(`git commit -am "${message}"`)
       await execCommand(`git push origin HEAD:${payload.pull_request.head.ref}`)
     }
